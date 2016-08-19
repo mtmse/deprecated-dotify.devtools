@@ -1,3 +1,5 @@
+[![Type](https://img.shields.io/badge/type-tools_bundle-blue.svg)](https://github.com/brailleapps/wiki/wiki/Types)
+
 # Introduction #
 
 In addition to the Dotify project, there is a DotifyDevtools project in the code repository. DotifyDevtools contains tools that are useful when developing for Dotify, but are not needed when running the final software.
