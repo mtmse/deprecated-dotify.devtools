@@ -34,3 +34,6 @@ values: convert or **legacy** (default)
 
 ## Unbrailler ##
 This tool can be used to compare text differences in an xml-editor. A folder is scanned for PEF-files and the braille in each file is replaced by ascii characters for easier debugging.
+
+# More information #
+See the [common wiki](https://github.com/brailleapps/wiki/wiki) for more information.
