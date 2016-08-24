@@ -1,4 +1,4 @@
-[![Type](https://img.shields.io/badge/type-tools_bundle-blue.svg)](https://github.com/brailleapps/wiki/wiki/Types)
+[![Build Status](https://travis-ci.org/brailleapps/dotify.devtools.svg?branch=master)](https://travis-ci.org/brailleapps/dotify.devtools)
 [![Type](https://img.shields.io/badge/type-library_bundle-blue.svg)](https://github.com/brailleapps/wiki/wiki/Types)
 
 # dotify.devtools #
