@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class ProcessStarter {
 	private static int id = 0;
 	private final PrintStream ps;
-	private final static String path;
+	private static final String path;
 	private final String idStr;
 	
 	static {

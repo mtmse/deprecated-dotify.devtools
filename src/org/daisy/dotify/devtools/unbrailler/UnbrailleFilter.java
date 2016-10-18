@@ -12,8 +12,8 @@ import javax.xml.stream.events.StartElement;
 import org.daisy.braille.api.table.BrailleConverter;
 
 class UnbrailleFilter extends StaxFilter2 {
-	private final static String PEF_NS = "http://www.daisy.org/ns/2008/pef";
-	private final static QName row = new QName(PEF_NS, "row");
+	private static final String PEF_NS = "http://www.daisy.org/ns/2008/pef";
+	private static final QName row = new QName(PEF_NS, "row");
 	private final BrailleConverter t;
 	private boolean translate = false;
 	private boolean filtering = false;

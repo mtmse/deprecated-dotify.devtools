@@ -13,7 +13,7 @@ import java.util.Date;
  *
  */
 public class SchematronRulesGenerator implements Closeable {
-	public final static String RULE_PREFIX="";
+	public static final String RULE_PREFIX="";
 
 	private int rule_no;
 	private PrintStream ps;

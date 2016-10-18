@@ -12,9 +12,9 @@ import org.daisy.dotify.devtools.converters.UnicodeNames;
  */
 public class GenerateTableEntries {
 	// change these as desired
-	public final static int start = 0x03b1; // first code point
-	public final static int end = 0x03c9; // last code point
-	public final static boolean comment = true; // write xml comment
+	public static final int start = 0x03b1; // first code point
+	public static final int end = 0x03c9; // last code point
+	public static final boolean comment = true; // write xml comment
 
 	/**
 	 * @param args
