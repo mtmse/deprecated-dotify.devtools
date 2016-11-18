@@ -6,6 +6,11 @@ import java.util.HashMap;
 import org.daisy.dotify.common.text.TextFileReader;
 import org.daisy.dotify.common.text.TextFileReader.LineData;
 
+/**
+ * Provides names for unicode code points
+ * @deprecated use Character.getName()
+ */
+@Deprecated
 public class UnicodeNames {
 	private enum UnicodeData {
 		INSTANCE;

@@ -1,7 +1,6 @@
 package org.daisy.dotify.devtools.cli;
 
 import org.daisy.dotify.devtools.converters.CodePointHelper;
-import org.daisy.dotify.devtools.converters.UnicodeNames;
 
 /**
  * Generates template entries for inserting in a translation table. Modify 
@@ -23,11 +22,9 @@ public class GenerateTableEntries {
 		char c;
 		for (int i=start;i<=end;i++) {
 			c = (char)i;
-			System.out.println("<entry key=\"" + c + "\"></entry>" + (comment?"\t<!-- "+UnicodeNames.getName(i)+", U+"+CodePointHelper.toHexString(i, 4)+" -->":""));
+			System.out.println("<entry key=\"" + c + "\"></entry>" + (comment?"\t<!-- "+Character.getName(i)+", U+"+CodePointHelper.toHexString(i, 4)+" -->":""));
 		}
 
 	}
-
-
 
 }
