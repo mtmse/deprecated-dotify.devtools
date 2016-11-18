@@ -26,16 +26,20 @@ public class SchematronRulesGenerator implements Closeable {
 	 * @param nsPrefix namespace prefix for the input document
 	 * @param nsUri namespace uri for the input document
 	 * @param os output stream
-	 * @throws UnsupportedEncodingException
 	 */
-	public SchematronRulesGenerator(String title, String nsPrefix, String nsUri, OutputStream os) throws UnsupportedEncodingException {
+	public SchematronRulesGenerator(String title, String nsPrefix, String nsUri, OutputStream os) {
 		this.rule_no = 1;
-		this.ps = new PrintStream(os, true, "UTF-8");
+		try {
+			this.ps = new PrintStream(os, true, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			//UTF-8 is always supported, see https://docs.oracle.com/javase/8/docs/api/java/nio/charset/Charset.html
+			throw new IllegalArgumentException(e);
+		}
 		this.nsPrefix = nsPrefix;
 		this.nsUri = nsUri;
 		init(title);
 	}
-	
+
 	private void init(String title) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		ps.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>");

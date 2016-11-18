@@ -18,7 +18,7 @@ import org.xml.sax.SAXException;
 public class PEFStatsCollector {
 
 	/**
-	 * @param args
+	 * @param args the application arguments
 	 */
 	public static void main(String[] args) {
 		if (args.length<2) {

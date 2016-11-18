@@ -17,7 +17,7 @@ public class GenerateTableEntries {
 	public static final boolean comment = true; // write xml comment
 
 	/**
-	 * @param args
+	 * @param args the application arguments
 	 */
 	public static void main(String[] args) {
 		char c;

@@ -24,11 +24,13 @@ public class CodePointHelper {
 	}
 	
 	/**
-	 * Parses a string as code point entities. For example:
+	 * Parses a string as a sequence of code point entities and returns the
+	 * corresponding characters. For example:
 	 * "0065,0066,0067" will be return "ABC". 
-	 * @param str
-	 * @param m
-	 * @return
+	 * @param str the string to parse
+	 * @param m the parser mode
+	 * @return returns a string 
+	 * @throws IllegalArgumentException if the string could not be parsed
 	 */
    public static String parse(String str, Mode m) {
     	if (str==null || str.equals("")) {
@@ -83,10 +85,10 @@ public class CodePointHelper {
     
    /**
     * Formats a string as code point entities. 
-    * @param str
-    * @param s
-    * @param m
-    * @return
+    * @param str the string to format
+    * @param s the formatting style
+    * @param m the formatting mode
+    * @return returns a string containing a sequence of code point entities
     */
 	public static String format(String str, Style s, Mode m) {
 		StringBuffer sb = new StringBuffer();

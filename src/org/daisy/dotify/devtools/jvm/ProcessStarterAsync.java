@@ -69,15 +69,16 @@ public class ProcessStarterAsync {
 
 	/**
 	 * Blocks until all processes have terminated.
-	 * @param timeout
-	 * @param unit
-	 * @throws IOException
+     * @param timeout the maximum time to wait
+     * @param unit the time unit of the timeout argument
+	 * @throws IOException if the shutdown is interrupted
 	 */
 	public void shutdown(long timeout, TimeUnit unit) throws IOException {
 		exe.shutdown();
 		try {
 			exe.awaitTermination(timeout, unit);
 		} catch (InterruptedException e1) {
+			//FIXME: this is incorrect, see http://www.ibm.com/developerworks/library/j-jtp05236/
 			throw new IOException(e1);
 		}
 	}

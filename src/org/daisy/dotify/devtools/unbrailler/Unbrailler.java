@@ -29,11 +29,9 @@ public class Unbrailler {
 	}
 
 	/**
-	 * @param args
-	 * @throws XMLStreamException 
-	 * @throws IOException 
+	 * @param args the application arguments
 	 */
-	public static void main(String[] args) throws XMLStreamException, IOException {
+	public static void main(String[] args) {
 		TableCatalogService tcs = invokeStatic("org.daisy.braille.consumer.table.TableCatalog", "newInstance");
 		if (args.length<2) {
 			System.out.println("Expected two arguments, path to input file and table identifier.");

@@ -34,6 +34,7 @@ public class UnicodeNames {
 	/**
 	 * Gets the name of the character with the specified code point.
 	 * @param codepoint the code point
+	 * @return returns the character name
 	 */
     public static String getName(int codepoint) {
     	return UnicodeData.INSTANCE.getName(codepoint);

@@ -64,6 +64,8 @@ public class ProcessStarter {
 	 * @param command
 	 *            the command, e.g. java -jar path/to/jar
 	 * @return returns the return value of the process
+	 * @throws IOException if there is an IO-problem
+	 * @throws InterruptedException if the process is interrupted
 	 */
 	public int startProcess(String ... command) throws IOException, InterruptedException {
 		ProcessBuilder processBuilder = new ProcessBuilder(command);

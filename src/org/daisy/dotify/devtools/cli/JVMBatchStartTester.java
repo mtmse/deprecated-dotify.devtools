@@ -9,8 +9,8 @@ import org.daisy.dotify.devtools.jvm.BatchProcessStarter;
 public class JVMBatchStartTester {
 
 	/**
-	 * @param args
-	 * @throws IOException
+	 * @param args the application arguments
+	 * @throws IOException if an io-problem occurs
 	 */
 	public static void main(String[] args) throws IOException {
 		if (args.length < 1) {

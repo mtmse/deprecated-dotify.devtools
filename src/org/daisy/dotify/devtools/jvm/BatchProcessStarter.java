@@ -44,7 +44,7 @@ public class BatchProcessStarter {
 
 	/**
 	 * Sets the execution timeout, in minutes
-	 * @param timeout
+	 * @param timeout the timeout, in minutes
 	 */
 	public void setTimeout(int timeout) {
 		this.timeout = timeout;

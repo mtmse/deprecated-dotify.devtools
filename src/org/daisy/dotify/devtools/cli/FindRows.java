@@ -11,8 +11,8 @@ import org.daisy.dotify.common.text.TextFileReader.LineData;
 public class FindRows {
 
 	/**
-	 * @param args
-	 * @throws IOException 
+	 * @param args the application arguments
+	 * @throws IOException if an an IO problem occurs
 	 */
 	public static void main(String[] args) throws IOException {
 		if (args.length<3) {

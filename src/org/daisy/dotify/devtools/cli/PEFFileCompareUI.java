@@ -23,8 +23,8 @@ import org.daisy.braille.pef.PEFFileBatchCompare.Diff;
 public class PEFFileCompareUI {
 
 	/**
-	 * @param args
-	 * @throws FileNotFoundException 
+	 * @param args the application arguments
+	 * @throws FileNotFoundException if a file can't be found
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
 		final String arg1, arg2;

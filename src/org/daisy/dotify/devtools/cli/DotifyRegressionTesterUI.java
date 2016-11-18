@@ -14,7 +14,7 @@ public class DotifyRegressionTesterUI {
 	 * and reference output. E.g. DTB00001/DTB00001.xml baseline/P1.pef
 	 * Second argument should point to the CLI
 	 * 
-	 * @param args
+	 * @param args the application arguments
 	 */
 	public static void main(String[] args) {
 		if (args.length < 6) {
