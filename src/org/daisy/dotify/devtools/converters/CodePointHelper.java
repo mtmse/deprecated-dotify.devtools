@@ -27,7 +27,6 @@ public class CodePointHelper {
 	 * Parses a string as code point entities. For example:
 	 * "0065,0066,0067" will be return "ABC". 
 	 * @param str
-	 * @param st
 	 * @param m
 	 * @return
 	 */

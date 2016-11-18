@@ -53,5 +53,8 @@ Tests are run with `gradlew test` (Windows) or `./gradlew test` (Mac/Linux)
 ## Javadoc ##
 Javadoc for the latest Dotify Devtools is available [here](http://brailleapps.github.io/dotify.devtools/latest/javadoc/).
 
+## Requirements & Compatibility ##
+- Requires Java 8
+
 ## More information ##
 See the [common wiki](https://github.com/brailleapps/wiki/wiki) for more information.
