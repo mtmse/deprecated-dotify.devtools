@@ -11,9 +11,10 @@ import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 
-import org.daisy.braille.api.factory.FactoryProperties;
-import org.daisy.braille.api.table.BrailleConverter;
-import org.daisy.braille.api.table.TableCatalogService;
+import org.daisy.braille.utils.api.factory.FactoryProperties;
+import org.daisy.braille.utils.api.table.BrailleConverter;
+import org.daisy.braille.utils.api.table.TableCatalog;
+import org.daisy.braille.utils.api.table.TableCatalogService;
 
 public class Unbrailler {
 	private final XMLInputFactory inFactory;
@@ -32,7 +33,7 @@ public class Unbrailler {
 	 * @param args the application arguments
 	 */
 	public static void main(String[] args) {
-		TableCatalogService tcs = invokeStatic("org.daisy.braille.consumer.table.TableCatalog", "newInstance");
+		TableCatalogService tcs = TableCatalog.newInstance();
 		if (args.length<2) {
 			System.out.println("Expected two arguments, path to input file and table identifier.");
 			for (FactoryProperties t : tcs.list()) {

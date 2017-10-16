@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-import org.daisy.braille.api.table.BrailleConverter;
+import org.daisy.braille.utils.api.table.BrailleConverter;
 import org.daisy.dotify.devtools.jvm.ProcessStarter;
 
 public class DotifyRegressionTesterRunner implements RegressionInterface {

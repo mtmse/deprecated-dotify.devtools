@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
-import org.daisy.braille.api.table.TableCatalogService;
+import org.daisy.braille.utils.api.table.TableCatalog;
+import org.daisy.braille.utils.api.table.TableCatalogService;
 import org.daisy.dotify.devtools.regression.DotifyRegressionTesterRunner;
 
 public class DotifyRegressionTesterUI {
@@ -22,7 +23,7 @@ public class DotifyRegressionTesterUI {
 			System.exit(-1);
 		}
 		try {
-			TableCatalogService tcs = invokeStatic("org.daisy.braille.consumer.table.TableCatalog", "newInstance");
+			TableCatalogService tcs = TableCatalog.newInstance();
 			DotifyRegressionTesterRunner rt = new DotifyRegressionTesterRunner(new File(args[0]), args[1], new File(args[2]), args[3], args[4], tcs.newTable(args[5]).newBrailleConverter());
 			if (args.length >= 7) {
 				int thArg = 6;

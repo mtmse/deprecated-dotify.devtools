@@ -5,9 +5,9 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.daisy.braille.pef.NormalizationResource;
-import org.daisy.braille.pef.PEFFileBatchCompare;
-import org.daisy.braille.pef.PEFFileBatchCompare.Diff;
+import org.daisy.braille.utils.pef.NormalizationResource;
+import org.daisy.braille.utils.pef.PEFFileBatchCompare;
+import org.daisy.braille.utils.pef.PEFFileBatchCompare.Diff;
 
 public class PEFFileCompareTester {
 
