@@ -6,8 +6,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -20,25 +24,24 @@ public class DotifyRegressionTesterRunner implements RegressionInterface {
 	private String argsSeparator = "\\t";
 	private final String pathToDotifyCli;
 	private final int maxThreads;
-	private final File pathToOutput;
-	private final String setup, locale;
+	private final File pathToOutput; 
 	private final BrailleConverter table;
 	private int timeout = 60;
 	private int threads;
 	private boolean haltOnError = true;
 	private final File pathToCommandsList;
 	private final List<ProcessStarter> pool;
+	private final Collection<String> opts;
 	private boolean errors;
 
-	public DotifyRegressionTesterRunner(File commandList, String pathToCli, File pathToOutput, String setup, String locale, BrailleConverter table) {
+	public DotifyRegressionTesterRunner(File commandList, String pathToCli, File pathToOutput, BrailleConverter table, Collection<String> opts) {
 		this.pathToCommandsList = commandList;
 		this.pathToDotifyCli = pathToCli;
 		this.maxThreads = Runtime.getRuntime().availableProcessors();
 		this.threads = maxThreads;
 		this.pathToOutput = pathToOutput;
-		this.setup = setup;
-		this.locale = locale;
 		this.table = table;
+		this.opts = opts;
 		Logger.getLogger(this.getClass().getCanonicalName()).info("Default is " + threads + " threads.");
 		if (!pathToCommandsList.isFile()) {
 			System.out.println("Cannot find file: " + pathToCommandsList);
@@ -77,7 +80,6 @@ public class DotifyRegressionTesterRunner implements RegressionInterface {
 		errors = false;
 		BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(pathToCommandsList)));
 		String line;
-
 		ExecutorService exe = Executors.newFixedThreadPool(threads);
 		try {
 			while ((line = in.readLine()) != null && (!errors || !haltOnError)) {
@@ -87,11 +89,22 @@ public class DotifyRegressionTesterRunner implements RegressionInterface {
 				} else if (line2.trim().startsWith("#")) {
 					Logger.getLogger(this.getClass().getCanonicalName()).warning("Ignoring line: " + line2);
 				} else {
-					String[] args = line2.split(argsSeparator);
+					String[] allArgs = line2.split(argsSeparator);
+					Map<String, String> optionalArgs = new HashMap<>();
+					for (String s : opts) {
+						optionalArgs.put(getArgumentKey(s), s);
+					}
+					if (allArgs.length>2) {
+						// override with values from file
+						for (String s : Arrays.copyOfRange(allArgs, 2, allArgs.length)) {
+							optionalArgs.put(getArgumentKey(s), s);
+						}
+					}
 					exe.execute(new DotifyRegressionTester(this,
-							new File(pathToCommandsList.getParentFile(), args[0]),
-							new File(pathToCommandsList.getParentFile(), args[1]),
-							(args.length>2?args[2]:setup), (args.length>3?args[3]:locale), table));
+							new File(pathToCommandsList.getParentFile(), allArgs[0]),
+							new File(pathToCommandsList.getParentFile(), allArgs[1]),
+							table, 
+							optionalArgs.values()));
 				}
 			}
 			exe.shutdown();
@@ -115,6 +128,10 @@ public class DotifyRegressionTesterRunner implements RegressionInterface {
 		}
 	}
 
+	static String getArgumentKey(String a) {
+		String regex = "=";
+		return a.split(regex)[0];
+	}
 
 	@Override
 	public ProcessStarter requestStarter() {

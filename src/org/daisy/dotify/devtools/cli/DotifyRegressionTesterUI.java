@@ -3,6 +3,8 @@ package org.daisy.dotify.devtools.cli;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.daisy.braille.utils.api.table.TableCatalog;
 import org.daisy.braille.utils.api.table.TableCatalogService;
@@ -24,7 +26,14 @@ public class DotifyRegressionTesterUI {
 		}
 		try {
 			TableCatalogService tcs = TableCatalog.newInstance();
-			DotifyRegressionTesterRunner rt = new DotifyRegressionTesterRunner(new File(args[0]), args[1], new File(args[2]), args[3], args[4], tcs.newTable(args[5]).newBrailleConverter());
+			Collection<String> opts = new ArrayList<>();
+			opts.add(args[3]);
+			opts.add(args[4]);
+			for (int i=8; i<args.length; i++) {
+				// add remaining optional arguments
+				opts.add(args[i]);
+			}
+			DotifyRegressionTesterRunner rt = new DotifyRegressionTesterRunner(new File(args[0]), args[1], new File(args[2]), tcs.newTable(args[5]).newBrailleConverter(), opts);
 			if (args.length >= 7) {
 				int thArg = 6;
 				try {

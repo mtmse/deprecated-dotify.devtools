@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.logging.Logger;
 
 import org.daisy.braille.utils.api.table.BrailleConverter;
@@ -16,12 +17,13 @@ import org.daisy.dotify.devtools.unbrailler.Unbrailler;
 class DotifyRegressionTester implements Runnable {
 	private final RegressionInterface inf;
 	private final File input, expected;
-	private final String setup, locale, ext;
+	private final String ext;
+	private final Collection<String> options;
 	private final BrailleConverter table;
 	private final boolean folders = true;
 
 	
-	public DotifyRegressionTester(RegressionInterface inf, File input, File expected, String setup, String locale, BrailleConverter table) {
+	public DotifyRegressionTester(RegressionInterface inf, File input, File expected, BrailleConverter table, Collection<String> options) {
 		this.inf = inf;
 		if (!input.isFile()) {
 			throw new IllegalArgumentException("Input does not exist or is not a file: " + input);
@@ -31,8 +33,7 @@ class DotifyRegressionTester implements Runnable {
 			Logger.getLogger(this.getClass().getCanonicalName()).warning("Comparison file does not exist or is not a file: " + expected);
 		}
 		this.expected = expected;
-		this.setup = setup;
-		this.locale = locale;
+		this.options = options;
 		this.table = table;	
 		this.ext = expected.getName().substring(expected.getName().lastIndexOf('.'));
 		if (!(".pef".equalsIgnoreCase(ext)|| ".obfl".equalsIgnoreCase(ext))) {
@@ -59,8 +60,7 @@ class DotifyRegressionTester implements Runnable {
 				}
 				command.add(input.getAbsolutePath());
 				command.add(res.getAbsolutePath());
-				command.add(setup);
-				command.add(locale);
+				command.addAll(options);
 				res.delete();
 				
 				starter.startProcess(jar?
