@@ -21,6 +21,7 @@ import org.daisy.braille.utils.api.table.BrailleConverter;
 import org.daisy.dotify.devtools.jvm.ProcessStarter;
 
 public class DotifyRegressionTesterRunner implements RegressionInterface {
+	private static final Logger logger = Logger.getLogger(DotifyRegressionTesterRunner.class.getCanonicalName());
 	private String argsSeparator = "\\t";
 	private final String pathToDotifyCli;
 	private final int maxThreads;
@@ -87,7 +88,7 @@ public class DotifyRegressionTesterRunner implements RegressionInterface {
 				if (line2.trim().equals("")) {
 					// ignore
 				} else if (line2.trim().startsWith("#")) {
-					Logger.getLogger(this.getClass().getCanonicalName()).warning("Ignoring line: " + line2);
+					logger.info("Ignoring line: " + line2);
 				} else {
 					String[] allArgs = line2.split(argsSeparator);
 					Map<String, String> optionalArgs = new HashMap<>();
