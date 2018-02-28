@@ -3,6 +3,7 @@ package org.daisy.dotify.devtools.regression;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import org.daisy.dotify.devtools.jvm.ProcessStarter;
 
 public class DotifyRegressionTesterRunner implements RegressionInterface {
 	private static final Logger logger = Logger.getLogger(DotifyRegressionTesterRunner.class.getCanonicalName());
-	private String argsSeparator = "\\t";
+	private final String argsSeparator = "\\t";
 	private final String pathToDotifyCli;
 	private final int maxThreads;
 	private final File pathToOutput; 
@@ -79,35 +80,9 @@ public class DotifyRegressionTesterRunner implements RegressionInterface {
 
 	public void run() throws IOException {
 		errors = false;
-		BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(pathToCommandsList)));
-		String line;
 		ExecutorService exe = Executors.newFixedThreadPool(threads);
 		try {
-			while ((line = in.readLine()) != null && (!errors || !haltOnError)) {
-				final String line2 = line;
-				if (line2.trim().equals("")) {
-					// ignore
-				} else if (line2.trim().startsWith("#")) {
-					logger.info("Ignoring line: " + line2);
-				} else {
-					String[] allArgs = line2.split(argsSeparator);
-					Map<String, String> optionalArgs = new HashMap<>();
-					for (String s : opts) {
-						optionalArgs.put(getArgumentKey(s), s);
-					}
-					if (allArgs.length>2) {
-						// override with values from file
-						for (String s : Arrays.copyOfRange(allArgs, 2, allArgs.length)) {
-							optionalArgs.put(getArgumentKey(s), s);
-						}
-					}
-					exe.execute(new DotifyRegressionTester(this,
-							new File(pathToCommandsList.getParentFile(), allArgs[0]),
-							new File(pathToCommandsList.getParentFile(), allArgs[1]),
-							table, 
-							optionalArgs.values()));
-				}
-			}
+			processFile(pathToCommandsList, exe);
 			exe.shutdown();
 			try {
 				while (!exe.isTerminated() && (!errors || !haltOnError)) {
@@ -122,9 +97,43 @@ public class DotifyRegressionTesterRunner implements RegressionInterface {
 				e1.printStackTrace();
 			}
 		} finally {
-			in.close();
 			if (errors) {
 				throw new IOException("Errors in test.");
+			}
+		}
+	}
+	
+	private void processFile(File path, ExecutorService exe) throws FileNotFoundException, IOException {
+		String line;
+		try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(path)))) {
+			while ((line = in.readLine()) != null && (!errors || !haltOnError)) {
+				final String line2 = line;
+				if (line2.trim().equals("")) {
+					// ignore
+				} else if (line2.trim().startsWith("#")) {
+					logger.info("Ignoring line: " + line2);
+				} else if (line2.trim().startsWith("<include>")) {
+					File newPath = new File(path.getParentFile(), line2.trim().substring(9).trim());
+					logger.info("Processing included file: " + newPath.getAbsolutePath());
+					processFile(newPath, exe);
+				} else {
+					String[] allArgs = line2.split(argsSeparator);
+					Map<String, String> optionalArgs = new HashMap<>();
+					for (String s : opts) {
+						optionalArgs.put(getArgumentKey(s), s);
+					}
+					if (allArgs.length>2) {
+						// override with values from file
+						for (String s : Arrays.copyOfRange(allArgs, 2, allArgs.length)) {
+							optionalArgs.put(getArgumentKey(s), s);
+						}
+					}
+					exe.execute(new DotifyRegressionTester(this,
+							new File(path.getParentFile(), allArgs[0]),
+							new File(path.getParentFile(), allArgs[1]),
+							table, 
+							optionalArgs.values()));
+				}
 			}
 		}
 	}
