@@ -50,16 +50,15 @@ dependencies {
     testCompile group: "junit", name: "junit", version: "4.7"
 }
 
-task updateBndVersion() {
-	doLast() {
-		String contents = file('bnd.bnd').getText('UTF-8')
-		file('bnd.bnd').write(contents.replaceAll('Bundle-Version: [\\d\\.A-Za-z\\-]+', "Bundle-Version: $version"), 'UTF-8')
-	}
-}
-
 bundle {
 	instructions << [
-		"-include": file('bnd.bnd'),
+		'-sources': 'true',
+		'Export-Package':	'org.daisy.dotify.devtools.cli,'+
+							'org.daisy.dotify.devtools.converters,'+
+							'org.daisy.dotify.devtools.jvm,'+
+							'org.daisy.dotify.devtools.regression,'+
+							'org.daisy.dotify.devtools.schematron,'+
+							'org.daisy.dotify.devtools.unbrailler',
 		'Built-By': System.getProperty("user.name"),
         'Built-On': new Date().format('yyyy-MM-dd'),
         'Repository-Revision': "$repoRevision",
