@@ -47,7 +47,7 @@ dependencies {
     compile 'org.daisy.braille:braille-utils.pef-tools:3.1.0'
     compile 'org.daisy.dotify:dotify.common:4.1.0'
 
-    testCompile group: "junit", name: "junit", version: "4.7"
+    testCompile group: "junit", name: "junit", version: "4.12"
 }
 
 bundle {
@@ -64,7 +64,8 @@ bundle {
         'Repository-Revision': "$repoRevision",
         'Repository-URL': "$repositoryURL",
         'Main-Class': mainClassName,
-        'Class-Path': configurations.runtime.collect { it.getName() }.join(' ')	
+        'Class-Path': configurations.runtime.collect { it.getName() }.join(' '),
+		'Include-Resource': 'LICENSE, NOTICE'	
 	]
 }
 
