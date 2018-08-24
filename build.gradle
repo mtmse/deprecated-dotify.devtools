@@ -1,10 +1,10 @@
 plugins {
+	id 'java'
+	id 'maven'
+	id 'application'
+	id 'signing'
     id 'org.dm.bundle' version '0.10.0'
 }
-apply plugin: 'java'
-apply plugin: "maven"
-apply plugin: 'application'
-apply plugin: "signing"
 
 group = 'org.daisy.dotify'
 
