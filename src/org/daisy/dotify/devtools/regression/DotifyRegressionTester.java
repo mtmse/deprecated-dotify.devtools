@@ -8,7 +8,6 @@ import java.util.Collection;
 import java.util.logging.Logger;
 
 import org.daisy.braille.utils.api.table.BrailleConverter;
-import org.daisy.braille.utils.pef.FileTools;
 import org.daisy.braille.utils.pef.PEFFileCompare;
 import org.daisy.dotify.common.io.FileIO;
 import org.daisy.dotify.devtools.jvm.ProcessStarter;
@@ -71,7 +70,7 @@ class DotifyRegressionTester implements Runnable {
 					if (System.getProperty("org.daisy.dotify.devtools.regression.baseline", "compare").equals("update")) {
 						ok = true;
 						//Overwrite baseline
-						FileTools.copy(new FileInputStream(res), new FileOutputStream(expected));
+						FileIO.copy(new FileInputStream(res), new FileOutputStream(expected));
 					} else {
 						if (".pef".equalsIgnoreCase(ext)) {
 							PEFFileCompare core = new PEFFileCompare();
@@ -96,7 +95,7 @@ class DotifyRegressionTester implements Runnable {
 							try {
 								// Make sure we at least have the expected copy
 								expectedCopy = buildResultFile("expected");
-								FileTools.copy(new FileInputStream(expected), new FileOutputStream(expectedCopy));
+								FileIO.copy(new FileInputStream(expected), new FileOutputStream(expectedCopy));
 							} catch (Exception e) {
 								copyFailed = true;
 								e.printStackTrace();
@@ -105,7 +104,7 @@ class DotifyRegressionTester implements Runnable {
 							try {
 								// If that works, see if we can copy the result
 								actual = buildResultFile("actual");
-								FileTools.copy(new FileInputStream(res), new FileOutputStream(actual));
+								FileIO.copy(new FileInputStream(res), new FileOutputStream(actual));
 							} catch (Exception e) {
 								copyFailed = true;
 								e.printStackTrace();

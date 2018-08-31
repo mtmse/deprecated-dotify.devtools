@@ -1,7 +1,6 @@
 package org.daisy.dotify.devtools.regression;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 @SuppressWarnings("javadoc")
