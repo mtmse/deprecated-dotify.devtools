@@ -6,8 +6,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.daisy.braille.utils.api.table.TableCatalog;
-import org.daisy.braille.utils.api.table.TableCatalogService;
+import org.daisy.dotify.api.table.TableCatalog;
+import org.daisy.dotify.api.table.TableCatalogService;
 import org.daisy.dotify.devtools.regression.DotifyRegressionTesterRunner;
 
 public class DotifyRegressionTesterUI {

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.logging.Logger;
 
-import org.daisy.braille.utils.api.table.BrailleConverter;
+import org.daisy.dotify.api.table.BrailleConverter;
 import org.daisy.braille.utils.pef.PEFFileCompare;
 import org.daisy.dotify.common.io.FileIO;
 import org.daisy.dotify.devtools.jvm.ProcessStarter;
