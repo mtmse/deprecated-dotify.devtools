@@ -1,10 +1,21 @@
+// For bnd
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:3.3.0'
+	}
+}
+
 plugins {
 	id 'java'
 	id 'maven'
 	id 'application'
 	id 'signing'
-    id 'org.dm.bundle' version '0.10.0'
 }
+
+apply plugin: 'biz.aQute.bnd.builder'
 
 group = 'org.daisy.dotify'
 
@@ -51,23 +62,27 @@ dependencies {
     testCompile group: "junit", name: "junit", version: "4.12"
 }
 
-bundle {
-	instructions << [
-		'-sources': 'true',
-		'Export-Package':	'org.daisy.dotify.devtools.cli,'+
-							'org.daisy.dotify.devtools.converters,'+
-							'org.daisy.dotify.devtools.jvm,'+
-							'org.daisy.dotify.devtools.regression,'+
-							'org.daisy.dotify.devtools.schematron,'+
-							'org.daisy.dotify.devtools.unbrailler',
-		'Built-By': System.getProperty("user.name"),
-        'Built-On': new Date().format('yyyy-MM-dd'),
-        'Repository-Revision': "$repoRevision",
-        'Repository-URL': "$repositoryURL",
-        'Main-Class': mainClassName,
-        'Class-Path': configurations.runtime.collect { it.getName() }.join(' '),
-		'Include-Resource': 'LICENSE, NOTICE'	
-	]
+jar {
+	manifest {
+		attributes(
+			'-sources': 'true',
+			'Export-Package':	'org.daisy.dotify.devtools.cli,'+
+								'org.daisy.dotify.devtools.converters,'+
+								'org.daisy.dotify.devtools.jvm,'+
+								'org.daisy.dotify.devtools.regression,'+
+								'org.daisy.dotify.devtools.schematron,'+
+								'org.daisy.dotify.devtools.unbrailler',
+			'Bundle-Name': "$bundleName",
+			'Bundle-SymbolicName': "$bundleName",
+			'Built-By': System.getProperty("user.name"),
+			'Built-On': new Date().format('yyyy-MM-dd'),
+			'Repository-Revision': "$repoRevision",
+			'Repository-URL': "$repositoryURL",
+			'Main-Class': mainClassName,
+			'Class-Path': configurations.runtime.collect { it.getName() }.join(' '),
+			'Include-Resource': 'LICENSE, NOTICE'	
+		)
+	}
 }
 
 task javadocJar(type: Jar) {
