@@ -10,8 +10,9 @@ import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 
 import org.daisy.dotify.api.table.BrailleConverter;
+import org.daisy.dotify.common.xml.StaxFilter;
 
-class UnbrailleFilter extends StaxFilter2 {
+class UnbrailleFilter extends StaxFilter {
 	private static final String PEF_NS = "http://www.daisy.org/ns/2008/pef";
 	private static final QName row = new QName(PEF_NS, "row");
 	private final BrailleConverter t;
