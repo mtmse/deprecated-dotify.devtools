@@ -20,22 +20,4 @@ public class CodePointHelperTest {
 		org.junit.Assert.assertEquals(expected, actual);
 	}
 	
-	@Test
-	public void testParse() {
-		String input = "0065,0066,0067";
-		String expected =  "ABC";
-		String actual = CodePointHelper.parse(input, Mode.DECIMAL);
-		org.junit.Assert.assertEquals(expected, actual);
-		
-	}
-	
-	@Test
-	public void testFormat() {
-		String input = "ABC";
-		String expected = "65, 66, 67";
-		String actual = CodePointHelper.format(input, Style.COMMA, Mode.DECIMAL);
-		org.junit.Assert.assertEquals(expected, actual);
-	}
-
-
 }
